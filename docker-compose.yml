@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+
+  ubuntu:
+    restart: on-failure
+    container_name: docker-ubuntu-example-${APP_ENV:-dev}
+    build:
+      context: .
+      # target: ${APP_ENV:-dev}
+      dockerfile: .docker/ubuntu/Dockerfile
+      args:
+        APP_ENV: ${APP_ENV:-dev}
+        TZ: ${TZ:-Europe/Kiev}
+    volumes:
+      - ./:/var/www/html:rw
+    ports:
+    - 8080:80
